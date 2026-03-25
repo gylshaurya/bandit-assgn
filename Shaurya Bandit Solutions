@@ -1,0 +1,123 @@
+Bandit Solutions
+Level 0
+ I just did ssh -p 2220 bandit0@bandit.labs.overthewire.org and then entered the password bandit0
+
+Level 1
+Wrote ls - saw that there was just a readme, used cat readme to see it’s content ad found the password in there
+
+Level 2
+Directly using cat - was not working as it was treating - as a flag so I did cat ./- to see the contents of the file which is the password
+
+Level 3
+Tired using cat “--spaces in this filename—“ but idk why it was not working so I did: cat ./--spaces\ in\ this\ filename-- 
+
+Level 4
+ first went inside inhere by using cd inhere, then did ls -a to see all hidden files and then did cat on the hidden file.
+
+Level 5
+First went inside inhere and then checked the file type of all files using file * like this only -file07 has ASCII which is human readable so did cat on that to see the password
+
+Level 6
+Did:
+find -type f -size +1032c -size -1034c ! -executable
+Only one file came so did cat on that.
+
+Level 7
+find / -group bandit6 -user bandit7 
+Then cat on the file which returned
+
+Level 8
+Simply did grep millionth data.txt to find the line which has millionth in the file and next to that the pass was there.
+
+Level 9
+Did:
+sort data.txt | uniq -u
+
+To first make the duplicated lines adjacent and then print the unique line from that output
+
+
+Level 10
+strings data.txt | grep "===="
+
+First take out only the printable text and then search for ====
+
+Level 11
+Simple decoded the base 64 using base64 -d data.txt
+
+Level 12
+cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+Did this to translate the rot13
+
+Level 13
+ First created a temp directory using mktemp -d and then copied the data.txt to inside the new temp directory 
+
+First did file on the data.txt to see it was gzip compressed then did mv data.txt data.gz then gzip -d data.gz then saw the file type to be bz2 then again renamed it to data.bz2 then did bzip2 -d data.bz2 then again uncompressed using gzip  then it was still archived using tar so did mv data data.tar then tar -xf data.tar a new file data5 was found then did tar -xf data5.bin to find another data6 and then similarly decompressed it to find  data 8 and then inside it the password.
+
+
+Level 14
+Did scp -P 2220 bandit13@bandit.labs.overthewire.org:sshkey.private and then used level 13’s pass to download the ssh key and then changed the ssh key’s permission so only I am the owner as it was giving the ssh key is too open error, then did ssh -i sshkey.private bandit14@bandit.labs.overthewire.org -p 2220 .
+
+Level 15
+
+Did nc localhost 30000
+
+Level 16
+Just did openssl s_client -connect localhost:30001
+
+Level 17 
+First did nmap -sV localhost -p 31000-32000 to find the open ports and also see which support ssl . Port 31790 had echo and was open and had SSL so did openssl s_client -connect localhost:31790 to find the password
+
+Level 18
+
+ssh bandit18@bandit.labs.overthewire.org -p 2220 'ls'
+ssh bandit18@bandit.labs.overthewire.org -p 2220 'cat readme'
+
+Level 19
+
+Just did ./bandit20-do cat /etc/bandit_pass/bandit20
+
+Level 20
+
+Did echo "0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO" | nc -l 12345  then ./suconnect 12345
+
+Level 21
+
+ls /etc/cron.d/
+cat /etc/cron.d/cronjob_bandit22
+cat /usr/bin/cronjob_bandit22.sh
+cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+
+
+Level 22
+
+ls /etc/cron.d/
+cat /etc/cron.d/cronjob_bandit23
+cat /usr/bin/cronjob_bandit23.sh
+echo "I am user bandit23" | md5sum | cut -d ' ' -f 1
+cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+
+
+
+Level 23
+
+mkdir -p /tmp/monke
+cd /tmp/monke
+nano shell.sh
+#!/bin/bash
+cat /etc/bandit_pass/bandit24 > /tmp/my_hack_123/password.txt (inside shell.sh)
+chmod 777 /tmp/monke
+chmod 777 shell.sh
+cp shell.sh /var/spool/bandit24/foo/
+
+
+Level 24
+
+for i in {0000..9999}; do 
+    echo "gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8 $i" 
+done | nc localhost 30002 | grep -v "Wrong"
+
+
+
+
+
+
